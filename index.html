@@ -3,81 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FGLW - ऑनलाइन आधिकारिक पंजीकरण प्रपत्र</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }</style>
+    <title>FGLW - ऑनलाइन पंजीकरण प्रपत्र</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        @media print {
+            body { background-color: white; }
+            .no-print { display: none !important; }
+        }
+        .pdf-page {
+            background: white;
+            padding: 20px;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen py-6 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-        <div class="bg-orange-600 text-white text-center p-6 border-b-4 border-emerald-600">
-            <h1 class="text-2xl sm:text-3xl font-bold tracking-wide">FGLW</h1>
-            <p class="text-xl font-semibold mt-1">फ्यूचर GROWTH लाइफ वेलफेयर संस्था</p>
-            <p class="text-sm italic mt-2 text-orange-100">|| सेवा सहयोग समर्पण — हमारा उद्देश्य: आपका विकास, हमारा संकल्प ||</p>
-            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-orange-50 font-medium pt-3 border-t border-orange-500">
-                <div>📞 हेल्पलाइन: 9528750182</div>
-                <div>📧 ईमेल: workforknowledge82@gmail.com</div>
-                <div>🌐 वेबसाइट: www.fglw.org.in</div>
-            </div>
+<body class="bg-gray-100 p-2 md:p-6 text-gray-800">
+
+    <div id="form-to-print" class="max-w-3xl mx-auto bg-white p-4 md:p-8 rounded-lg shadow-lg border border-gray-200 pdf-page">
+        
+        <div class="text-center border-b-2 border-blue-900 pb-4 mb-6">
+            <h1 class="text-3xl font-extrabold text-blue-900 tracking-wide">FGLW</h1>
+            [span_0](start_span)<h2 class="text-2xl font-bold text-gray-800 mt-1">फ्यूचर ग्रोथ लाइफ वेलफेयर संस्था[span_0](end_span)</h2>
+            <p class="text-sm font-semibold text-green-700 mt-1">|| [span_1](start_span)सेवा सहयोग समर्पण हमारा उद्देश्य: आपका विकास, हमारा संकल्प ||[span_1](end_span)</p>
         </div>
-        <form class="p-6 sm:p-10 space-y-8">
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-blue-700">
-                <strong>निर्देशः</strong> कृपया ध्यान दें कि भाग 1 में दी गई सभी जानकारियां आपके सरकारी दस्तावेजों के अनुसार पूरी तरह शुद्ध होनी चाहिए।
-            </div>
+
+        <form id="fglwForm" class="space-y-6">
+            
             <div>
-                <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-4 text-emerald-700">भाग 01 : ग्राहक पंजीकरण एवं व्यक्तिगत विवरण</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">नाम *</label><input type="text" required class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">पिता का नाम *</label><input type="text" required class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">माता का नाम *</label><input type="text" required class="w-full border border-gray-300 rounded-md p-2.5"></div>
+                [span_2](start_span)<h3 class="bg-blue-900 text-white px-3 py-1.5 font-bold rounded text-md mb-4">भाग 01 : ग्राहक पंजीकरण एवं व्यक्तिगत विवरण[span_2](end_span)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">जेंडर (Gender) *</label>
-                        <div class="flex space-x-4 mt-2">
-                            <label><input type="radio" name="gender" required class="text-orange-600"><span class="ml-2 text-sm text-gray-700">पुरुष</span></label>
-                            <label><input type="radio" name="gender"><span class="ml-2 text-sm text-gray-700">महिला</span></label>
-                            <label><input type="radio" name="gender"><span class="ml-2 text-sm text-gray-700">अन्य</span></label>
-                        </div>
+                        <label class="block text-sm font-semibold">आवेदक का नाम *</label>
+                        <input type="text" id="name" required class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
                     </div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">मोबाइल नंबर *</label><input type="tel" required pattern="[0-9]{10}" placeholder="10 अंकों का नंबर" class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">आधार कार्ड संख्या *</label><input type="text" required class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">पैन कार्ड</label><input type="text" class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">पासपोर्ट साइज फोटो अपलोड करें *</label><input type="file" required class="w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-orange-50 file:text-orange-700"></div>
-                    <div class="md:col-span-2"><label class="block text-sm font-semibold text-gray-700 mb-1">एड्रेस (पूरा पता) *</label><textarea rows="2" required class="w-full border border-gray-300 rounded-md p-2.5"></textarea></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">बैंक खाता संख्या *</label><input type="text" required class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">आईएफएससी (IFSC) कोड *</label><input type="text" required class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">नॉमिनी का नाम *</label><input type="text" required class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">स्पॉन्सर नाम</label><input type="text" class="w-full border border-gray-300 rounded-md p-2.5"></div>
-                    <div><label class="block text-sm font-semibold text-gray-700 mb-1">स्पॉन्सर कोड (ID)</label><input type="text" class="w-full border border-gray-300 rounded-md p-2.5"></div>
+                    <div>
+                        <label class="block text-sm font-semibold">पिता का नाम *</label>
+                        <input type="text" id="fatherName" required class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">माता का नाम *</label>
+                        <input type="text" id="motherName" required class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">जेंडर (Gender) *</label>
+                        <select id="gender" required class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="">चुनें</option>
+                            <option value="पुरुष">पुरुष</option>
+                            <option value="महिला">महिला</option>
+                            <option value="अन्य">अन्य</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">मोबाइल नंबर *</label>
+                        <input type="tel" id="mobile" required class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">आधार कार्ड नंबर *</label>
+                        <input type="text" id="aadhar" required class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">पैन कार्ड नंबर</label>
+                        <input type="text" id="pan" class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">नॉमीनी का नाम *</label>
+                        <input type="text" id="nominee" required class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold">एड्रेस (पूरा पता) *</label>
+                        <textarea id="address" required rows="2" class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">बैंक खाता संख्या</label>
+                        <input type="text" id="bankAcc" class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">आईएफएससी (IFSC) कोड</label>
+                        <input type="text" id="ifsc" class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">स्पॉन्सर नाम</label>
+                        <input type="text" id="sponsorName" class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold">स्पॉन्सर कोड (ID)</label>
+                        <input type="text" id="sponsorId" class="w-full border border-gray-300 p-2 rounded mt-1 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
                 </div>
             </div>
+
             <div>
-                <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-2 text-emerald-700">भाग 02 : संस्थागत कल्याणकारी योजना चयन</h2>
-                <div class="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">1. इंश्योरेंस पॉलिसी योजना</span><span class="text-xs text-gray-600">आकस्मिक दुर्घटना एवं जीवन जोखिम सुरक्षा कवर</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">2. लाइफ वेलफेयर पेंशन योजना</span><span class="text-xs text-gray-600">वरिष्ठ नागरिकों व पात्रों हेतु नियमित मासिक पेंशन सहयोग।</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">3. बाल शिक्षा सहायता योजना</span><span class="text-xs text-gray-600">बच्चों की शिक्षा, स्कॉलरशिप एवं स्कूल फीस हेतु आर्थिक मदद।</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">4. गर्भवती महिला सहायता योजना</span><span class="text-xs text-gray-600">चिकित्सा, प्रसव पूर्व देखभाल एवं पोषण हेतु वित्तीय अनुदान।</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">5. कन्या विवाह सहायता योजना</span><span class="text-xs text-gray-600">बेटियों के विवाह (कन्यादान) हेतु विशेष संस्थागत वित्तीय अनुदान।</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">6. किसान कल्याण समृद्धि योजना</span><span class="text-xs text-gray-600">कृषकों को उन्नत खेती, जैविक खाद एवं कृषि कार्यों हेतु मदद।</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">7. अन्य जनकल्याणकारी योजना</span><span class="text-xs text-gray-600">संस्था नियमानुसार संचालित अन्य सामाजिक सहायता योजनाएं</span></div></label>
+                [span_3](start_span)<h3 class="bg-blue-900 text-white px-3 py-1.5 font-bold rounded text-md mb-3">भाग 02 : संस्थागत कल्याणकारी योजना चयन[span_3](end_span)</h3>
+                [span_4](start_span)<p class="text-xs text-red-600 mb-2 font-medium">* आवेदक पात्रता के अनुसार एक या एक से अधिक योजनाओं का चयन कर सकते हैं।[span_4](end_span)</p>
+                
+                <div class="space-y-2 border border-gray-300 p-3 rounded bg-gray-50">
+                    <label class="flex items-start space-x-3 p-1.5 hover:bg-white rounded cursor-pointer">
+                        <input type="checkbox" name="schemes" value="1. इंश्योरेंस पॉलिसी योजना" class="mt-1 h-4 w-4 text-blue-600 rounded">
+                        <div>
+                            <span class="font-semibold block text-sm">1. [span_5](start_span)इंश्योरेंस पॉलिसी योजना[span_5](end_span)</span>
+                            [span_6](start_span)<span class="text-xs text-gray-600">आकस्मिक दुर्घटना एवं जीवन जोखिम सुरक्षा कवर[span_6](end_span)</span>
+                        </div>
+                    </label>
+                    <label class="flex items-start space-x-3 p-1.5 hover:bg-white rounded cursor-pointer">
+                        <input type="checkbox" name="schemes" value="2. लाइफ वेलफेयर पेंशन योजना" class="mt-1 h-4 w-4 text-blue-600 rounded">
+                        <div>
+                            <span class="font-semibold block text-sm">2. [span_7](start_span)लाइफ वेलफेयर पेंशन योजना[span_7](end_span)</span>
+                            [span_8](start_span)<span class="text-xs text-gray-600">वरिष्ठ नागरिकों व पात्रों हेतु नियमित मासिक पेंशन सहयोग।[span_8](end_span)</span>
+                        </div>
+                    </label>
+                    <label class="flex items-start space-x-3 p-1.5 hover:bg-white rounded cursor-pointer">
+                        <input type="checkbox" name="schemes" value="3. बाल शिक्षा सहायता योजना" class="mt-1 h-4 w-4 text-blue-600 rounded">
+                        <div>
+                            <span class="font-semibold block text-sm">3. [span_9](start_span)बाल शिक्षा सहायता योजना[span_9](end_span)</span>
+                            [span_10](start_span)<span class="text-xs text-gray-600">बच्चों की शिक्षा, स्कॉलरशिप एवं स्कूल फीस हेतु आर्थिक मदद।[span_10](end_span)</span>
+                        </div>
+                    </label>
+                    <label class="flex items-start space-x-3 p-1.5 hover:bg-white rounded cursor-pointer">
+                        <input type="checkbox" name="schemes" value="4. गर्भवती महिला सहायता योजना" class="mt-1 h-4 w-4 text-blue-600 rounded">
+                        <div>
+                            <span class="font-semibold block text-sm">4. [span_11](start_span)गर्भवती महिला सहायता योजना[span_11](end_span)</span>
+                            [span_12](start_span)<span class="text-xs text-gray-600">चिकित्सा, प्रसव पूर्व देखभाल एवं पोषण हेतु वित्तीय अनुदान।[span_12](end_span)</span>
+                        </div>
+                    </label>
+                    <label class="flex items-start space-x-3 p-1.5 hover:bg-white rounded cursor-pointer">
+                        <input type="checkbox" name="schemes" value="5. कन्या विवाह सहायता योजना" class="mt-1 h-4 w-4 text-blue-600 rounded">
+                        <div>
+                            <span class="font-semibold block text-sm">5. [span_13](start_span)कन्या विवाह सहायता योजना[span_13](end_span)</span>
+                            [span_14](start_span)<span class="text-xs text-gray-600">बेटियों के विवाह (कन्यादान) हेतु विशेष संस्थागत वित्तीय अनुदान।[span_14](end_span)</span>
+                        </div>
+                    </label>
+                    <label class="flex items-start space-x-3 p-1.5 hover:bg-white rounded cursor-pointer">
+                        <input type="checkbox" name="schemes" value="6. किसान कल्याण समृद्धि योजना" class="mt-1 h-4 w-4 text-blue-600 rounded">
+                        <div>
+                            <span class="font-semibold block text-sm">6. [span_15](start_span)किसान कल्याण समृद्धि योजना[span_15](end_span)</span>
+                            [span_16](start_span)<span class="text-xs text-gray-600">कृषकों को उन्नत खेती, जैविक खाद एवं कृषि कार्यों हेतु मदद।[span_16](end_span)</span>
+                        </div>
+                    </label>
                 </div>
             </div>
-            <div>
-                <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-4 text-emerald-700">भाग 03 : संस्थागत नीति निर्देश एवं आधिकारिक सत्यापन</h2>
-                <div class="bg-amber-50 border border-amber-200 text-sm text-gray-700 p-4 rounded-lg space-y-2 mb-6">
-                    <p class="font-semibold text-amber-900">⚠️ अनिवार्य पंजीकरण शुल्क एवं खाता सक्रियता नीति:</p>
-                    <p class="text-xs leading-relaxed">पंजीकरण के समय जमा किया जाने वाला पंजीकरण शुल्क पूरी तरह से गैर-वापसीयोग्य (Non-Refundable) है। खाता सक्रिय होने के उपरांत ही आप संस्था द्वारा संचालित योजनाओं का लाभ नियम संगत प्राप्त करने के हकदार बनते हैं।</p>
-                </div>
-                <div class="mb-6">
-                    <label class="flex items-start cursor-pointer"><input type="checkbox" required class="mt-1 h-4 w-4"><span class="ml-3 text-xs text-gray-700 leading-relaxed"><strong>घोषणा (Declaration):</strong> मैं प्रमाणित करता/करती हूँ कि इस पंजीकरण प्रपत्र में मेरे द्वारा दी गई सभी जानकारियां पूर्णतः सत्य हैं। मैं पूरी तरह सहमत होकर स्वेच्छा से खाता खुलवाने हेतु आवेदन कर रहा/रही हूँ। *</span></label>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm bg-gray-50 p-4 rounded-lg">
-                    <div><label class="block text-xs font-semibold text-gray-600 mb-1">स्थान *</label><input type="text" required class="w-full border border-gray-300 rounded p-2 bg-white"></div>
-                    <div><label class="block text-xs font-semibold text-gray-600 mb-1">कार्यकर्ता ID *</label><input type="text" required class="w-full border border-gray-300 rounded p-2 bg-white"></div>
-                    <div><label class="block text-xs font-semibold text-gray-600 mb-1">डिजिटल हस्ताक्षर *</label><input type="file" required class="w-full text-xs text-gray-500"></div>
-                </div>
+
+            <div class="text-xs text-gray-600 space-y-1 bg-yellow-50 p-3 rounded border border-yellow-200">
+                [span_17](start_span)<p class="font-bold text-gray-800 text-sm">भाग 03 : नियम, नीति निर्देश एवं घोषणा पत्र[span_17](end_span)</p>
+                [span_18](start_span)<p>• पंजीकरण शुल्क पूरी तरह से गैर-वापसीयोग्य (Non-Refundable) है।[span_18](end_span)</p>
+                [span_19](start_span)<p>• फर्जी दस्तावेज पाए जाने या नियमों के उल्लंघन पर संस्था को तुरंत सदस्यता समाप्त करने का पूर्ण अधिकार है।[span_19](end_span)</p>
+                <label class="flex items-center space-x-2 pt-2 text-gray-900 font-medium cursor-pointer">
+                    <input type="checkbox" id="declaration" required class="h-4 w-4 text-blue-600">
+                    <span>मैं प्रमाणित करता/करती हूँ कि मेरे द्वारा दी गई सभी जानकारियां पूर्णतः सत्य हैं। * [span_20](start_span)</span>
+                </label>
             </div>
-            <div class="pt-4"><button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-lg shadow-md transition tracking-wider">पंजीकरण सबमिट करें</button></div>
+
+            <div id="action-area" class="text-center pt-2 no-print">
+                <button type="button" id="submitBtn" onclick="processForm()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-6 rounded-lg shadow-md text-lg transition duration-150">
+                    फॉर्म सबमिट करें और PDF डाउनलोड करें
+                </button>
+            </div>
+            
+            <div class="text-center text-[10px] text-gray-500 pt-4 border-t border-gray-200">
+                हेल्पलाइन: 9528750182 | ईमेल: workforknowledge82@gmail.com | वेबसाइट: www.fglw.org.in[span_20](end_span) <br>
+                प्रधान कार्यालय: पुणे, महाराष्ट्र 411001 | [span_21](start_span)कार्यालय: नई दिल्ली - 110001[span_21](end_span)
+            </div>
+
         </form>
     </div>
+
+    <script>
+        function processForm() {
+            const form = document.getElementById('fglwForm');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // 1. वैलिडेशन चेक
+            if(!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            // चुनी गई योजनाएं इकट्ठा करें
+            let selectedSchemes = [];
+            document.querySelectorAll('input[name="schemes"]:checked').forEach((checkbox) => {
+                selectedSchemes.push(checkbox.value);
+            });
+
+            if(selectedSchemes.length === 0) {
+                alert("कृपया भाग 02 में से कम से कम एक योजना का चयन अवश्य करें।");
+                return;
+            }
+
+            // बटन को 'लोडिंग' मोड में बदलें ताकि यूजर दोबारा क्लिक न करे
+            submitBtn.disabled = true;
+            submitBtn.innerText = "कृपया रुकें, PDF तैयार हो रही है...";
+            submitBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+            submitBtn.classList.add('bg-gray-400');
+
+            const name = document.getElementById('name').value;
+            const father = document.getElementById('fatherName').value;
+            const mobile = document.getElementById('mobile').value;
+            const aadhar = document.getElementById('aadhar').value;
+            const address = document.getElementById('address').value;
+
+            const element = document.getElementById('form-to-print');
+            const actionArea = document.getElementById('action-area');
+            
+            // बटन एरिया को पीडीएफ से छुपाएं
+            actionArea.style.display = 'none';
+
+            // पीडीएफ सेटिंग्स
+            const pdfOptions = {
+                margin:       10,
+                filename:     'FGLW_' + name.replace(/\s+/g, '_') + '.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // पीडीएफ जनरेशन प्रोसेस
+            html2pdf().set(pdfOptions).from(element).toPdf().get('pdf').save().then(() => {
+                
+                // पीडीएफ सफलतापूर्वक सेव होने के बाद बटन वापस दिखाएं और नॉर्मल करें
+                actionArea.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerText = "फॉर्म सबमिट करें और PDF डाउनलोड करें";
+                submitBtn.classList.remove('bg-gray-400');
+                submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                
+                // व्हाट्सएप पर भेजने का लॉजिक
+                [span_22](start_span)const targetWhatsAppNumber = "919528750182"; // आपका हेल्पलाइन नंबर[span_22](end_span)
+                
+                const whatsappMessage = *📄 नया FGLW ऑनलाइन पंजीकरण फॉर्म* \n\n +
+                                        • *नाम:* ${name}\n +
+                                        • *पिता का नाम:* ${father}\n +
+                                        • *मोबाइल नंबर:* ${mobile}\n +
+                                        • *आधार नंबर:* ${aadhar}\n +
+                                        • *पता:* ${address}\n\n +
+                                        • *चुनी गई योजनाएं:* \n${selectedSchemes.join('\n')}\n\n +
+                                        📢 _ग्राहक द्वारा फॉर्म की PDF डाउनलोड कर ली गई है।_;
+
+                const encodedText = encodeURIComponent(whatsappMessage);
+                
+                // व्हाट्सएप ओपन करें
+                window.open(https://wa.me/${targetWhatsAppNumber}?text=${encodedText}, '_blank');
+
+            }).catch(err => {
+                // एरर आने पर बटन को वापस ठीक करें
+                actionArea.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerText = "फॉर्म सबमिट करें और PDF डाउनलोड करें";
+                submitBtn.classList.remove('bg-gray-400');
+                submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+                alert("पीडीएफ डाउनलोड करने में कोई समस्या आई, कृपया दोबारा प्रयास करें।");
+            });
+        }
+    </script>
 </body>
 </html>
