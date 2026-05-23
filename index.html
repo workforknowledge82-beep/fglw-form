@@ -3,490 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FGLW - ऑनलाइन पंजीकरण फॉर्म</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
+    <title>FGLW - पंजीकरण फॉर्म</title>
     <style>
-        :root {
-            --primary-color: #1a365d;
-            --secondary-color: #2b6cb0;
-            --border-color: #cbd5e0;
-            --text-color: #2d3748;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #edf2f7;
-            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
             margin: 0;
             padding: 20px;
         }
-
-        /* ऑनलाइन फॉर्म का बाहरी हिस्सा */
         .form-container {
             max-width: 850px;
             margin: 0 auto;
-            background: white;
+            background: #ffffff;
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #2c3e50;
         }
-
-        /* सबमिट बटन स्टाइल */
-        .submit-btn {
-            display: block;
+        .header-table {
             width: 100%;
-            padding: 15px;
-            background-color: #2b6cb0;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 30px;
-            transition: background 0.2s;
-        }
-
-        .submit-btn:hover {
-            background-color: #1a365d;
-        }
-
-        /* PDF जेनरेशन के लिए आंतरिक पेज सेटिंग */
-        .pdf-page {
-            padding: 20px;
-            background: white;
-            box-sizing: border-box;
-            position: relative;
-        }
-
-        .page-break {
-            page-break-after: always;
-        }
-
-        /* हेडर स्टाइल */
-        .header {
-            text-align: center;
-            border-bottom: 3px double var(--primary-color);
-            padding-bottom: 10px;
+            border-collapse: collapse;
             margin-bottom: 20px;
         }
-
-        .logo-text {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin: 0;
-        }
-
-        .org-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #e53e3e;
-            margin: 5px 0;
-        }
-
-        .motto {
-            font-size: 14px;
-            font-style: italic;
-            color: #4a5568;
-        }
-
-        .part-title {
-            background-color: var(--primary-color);
-            color: white;
+        .header-table td {
             text-align: center;
-            padding: 8px;
+            vertical-align: middle;
+        }
+        
+        .fglw-logo-design {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border: 3px solid #f39c12;
+            border-radius: 50%;
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .fglw-logo-design .logo-text {
             font-size: 18px;
-            font-weight: bold;
-            margin-top: 20px;
-            border-radius: 4px;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .fglw-logo-design .logo-sub {
+            font-size: 9px;
+            color: #f39c12;
+            margin-top: 2px;
+            text-transform: uppercase;
         }
 
-        .section-title {
+        .main-title {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        .sub-title {
+            color: #e74c3c;
+            margin: 5px 0;
             font-size: 16px;
+            letter-spacing: 2px;
             font-weight: bold;
-            color: var(--secondary-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 5px;
-            margin-top: 15px;
         }
-
-        /* फॉर्म इनपुट ग्रिड */
+        .office-info {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.6;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+        .promo-section {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        h3 {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 12px;
+            font-size: 16px;
+            border-radius: 4px;
+            margin-top: 25px;
+        }
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-top: 15px;
         }
-
         .form-group {
             display: flex;
             flex-direction: column;
         }
-
         .form-group.full-width {
             grid-column: span 2;
         }
-
         label {
-            font-weight: 600;
+            font-weight: bold;
             margin-bottom: 5px;
             font-size: 14px;
         }
-
-        input[type="text"], input[type="tel"], textarea {
-            padding: 10px;
-            border: 1px solid var(--border-color);
+        input[type="text"], input[type="date"] {
+            padding: 8px;
+            border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 14px;
             width: 100%;
             box-sizing: border-box;
-            background-color: #f7fafc;
         }
-
-        /* जब PDF बनेगी तो इनपुट बॉक्स की बॉर्डर हट जाएगी और वो केवल टेक्स्ट जैसा दिखेगा */
-        .pdf-mode input, .pdf-mode textarea {
-            border: none !important;
-            border-bottom: 1px dotted #000 !important;
-            background: transparent !important;
-            padding: 5px 0 !important;
+        .radio-group {
+            margin-top: 8px;
         }
-
-        .radio-group, .checkbox-group {
-            display: flex;
-            gap: 15px;
-            padding-top: 8px;
-        }
-
-        /* फोटो बॉक्स */
-        .photo-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-top: 15px;
-        }
-
-        .photo-box {
-            width: 35mm;
-            height: 45mm;
-            border: 2px dashed var(--border-color);
-            display: flex;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #718096;
-            background: #fafafa;
-        }
-
-        /* टेबल स्टाइल */
         .scheme-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
-            font-size: 14px;
         }
-
         .scheme-table th, .scheme-table td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
             padding: 10px;
             text-align: left;
+            font-size: 14px;
         }
-
         .scheme-table th {
             background-color: #f2f2f2;
         }
-
-        .checkbox-cell {
+        .text-center {
             text-align: center;
-            width: 50px;
         }
-
-        .checkbox-cell input {
-            transform: scale(1.3);
-        }
-
-        .note {
-            background-color: #fffaf0;
-            border-left: 4px solid #dd6b20;
-            padding: 10px;
-            margin: 15px 0;
+        .terms-text {
             font-size: 13px;
-        }
-
-        .instructions-text {
-            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
             text-align: justify;
-            line-height: 1.8;
         }
-
-        /* सिग्नेचर बॉक्स */
-        .sig-container {
+        .terms-text ol {
+            padding-left: 20px;
+        }
+        .declaration {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .footer-sign {
+            margin-top: 40px;
             display: flex;
             justify-content: space-between;
-            margin-top: 50px;
-            text-align: center;
-        }
-
-        .sig-box {
-            width: 30%;
-            border-top: 1px dashed black;
-            padding-top: 5px;
-            font-size: 13px;
             font-weight: bold;
+            margin-bottom: 20px;
         }
-
-        .footer {
-            margin-top: 40px;
+        
+        /* सबमिट बटन की स्टाइल जो PDF में नहीं दिखेगी */
+        .submit-btn-container {
             text-align: center;
-            font-size: 11px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 10px;
-            color: #4a5568;
+            margin-top: 30px;
+        }
+        .download-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+        .download-btn:hover {
+            background-color: #219653;
         }
     </style>
+    
+    <!-- PDF जनरेट करने के लिए आवश्यक स्क्रिप्ट -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
-<div class="form-container">
-    <form id="welfareForm">
-        <div id="pdf-content">
-            
-            <div class="pdf-page page-break">
-                <div class="header">
-                    <div class="logo-text">FGLW</div>
-                    <div class="org-name">फ्यूचर ग्रोथ लाइफ वेलफेयर संस्था</div>
-                    <div class="motto">|| सेवा सहयोग समर्पण हमारा उद्देश्य: आपका विकास, हमारा संकल्प ||</div>
+<div class="form-container" id="form-to-print">
+    
+    <!-- हेडर सेक्शन -->
+    <table class="header-table">
+        <tr>
+            <td style="width: 15%;">
+                <div class="fglw-logo-design">
+                    <span class="logo-text">FGLW</span>
+                    <span class="logo-sub">FOUNDATION</span>
                 </div>
-
-                <div class="part-title">भाग 01 : ग्राहक पंजीकरण एवं व्यक्तिगत विवरण</div>
-                
-                <div class="photo-container">
-                    <div class="section-title" style="width: 70%;">1. आवेदक का व्यक्तिगत और बैंकिंग विवरण (Customer Profile)</div>
-                    <div class="photo-box">पासपोर्ट साइज<br>फोटो</div>
+            </td>
+            <td style="width: 70%;">
+                <div class="main-title">फ्यूचर ग्रोथ लाइव वेलफेयर संस्था (FGLW)</div>
+                <div class="sub-title">|| सेवा • सहयोग • समर्पण ||</div>
+                <div class="office-info">
+                    <strong>हमारा उद्देश्य:</strong> आपका विकास, हमारा संकल्प<br>
+                    <strong>प्रधान कार्यालय:</strong> पुणे, महाराष्ट्र 411001 | <strong>कार्यालय:</strong> नई दिल्ली - 110001<br>
+                    <strong>हेल्पलाइन:</strong> 9528750182 | <strong>ईमेल:</strong> workforknowledge82@gmail.com | <strong>वेबसाइट:</strong> www.fglw.org.in
                 </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>नाम :</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label>जेंडर (Gender) :</label>
-                        <div class="radio-group">
-                            <label><input type="radio" name="gender" value="पुरुष"> पुरुष</label>
-                            <label><input type="radio" name="gender" value="महिला"> महिला</label>
-                            <label><input type="radio" name="gender" value="अन्य"> अन्य</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>पिता का नाम :</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label>माता का नाम :</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="form-group">
-                        <label>मोबाइल नंबर :</label>
-                        <input type="tel" required>
-                    </div>
-                    <div class="form-group">
-                        <label>पैन कार्ड :</label>
-                        <input type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>आधार कार्ड :</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>एड्रेस (पूरा पता) :</label>
-                        <textarea rows="2" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>बैंक खाता संख्या :</label>
-                        <input type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>आईएफएससी कोड :</label>
-                        <input type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>नॉमिनी का नाम :</label>
-                        <input type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>स्पॉन्सर नाम :</label>
-                        <input type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>स्पॉन्सर कोड (ID) :</label>
-                        <input type="text">
-                    </div>
+            </td>
+            <td style="width: 15%;">
+                <div class="fglw-logo-design">
+                    <span class="logo-text">FGLW</span>
+                    <span class="logo-sub">FOUNDATION</span>
                 </div>
+            </td>
+        </tr>
+    </table>
 
-                <div class="note" style="margin-top: 30px;">
-                    <strong>* निर्देशः</strong> कृपया ध्यान दें कि भाग 1 में दी गई सभी जानकारियां आपके सरकारी दस्तावेजों के अनुसार पूरी तरह शुद्ध होनी चाहिए।
-                </div>
+    <!-- मुख्य पट्टी (नया अपडेटेड शीर्षक) -->
+    <div class="promo-section">
+        <span>भाग 01 : ग्राहक पंजीकरण एवं व्यक्तिगत विवरण</span> 
+    </div>
 
-                <div class="footer">
-                    हेल्पलाइन: 9528750182 | ईमेल: workforknowledge82@gmail.com | वेबसाइट: www.fglw.org.in<br>
-                    प्रधान कार्यालय (Head Office): पुणे, महाराष्ट्र 411001 | कार्यालय (Office): नई दिल्ली - 110001
-                </div>
-            </div>
-
-            <div class="pdf-page page-break">
-                <div class="header">
-                    <div class="logo-text">FGLW</div>
-                    <div class="org-name">फ्यूचर ग्रोथ लाइफ वेलफेयर संस्था</div>
-                    <div class="motto">|| सेवा सहयोग समर्पण आधिकारिक पंजीकरण प्रपत्र ||</div>
-                </div>
-
-                <div class="part-title">भाग 02 : संस्थागत कल्याणकारी योजना चयन</div>
-                
-                <div class="section-title">2. योजनाओं का चयन (Select Intended Welfare Schemes)</div>
-                <p style="font-size: 14px;">* आवेदक जिस भी विशिष्ट जन-कल्याणकारी योजना का लाभ प्राप्त करना चाहते हैं, उसके सम्मुख दिए गए बॉक्स में सही (✓) का निशान लगाएं:</p>
-
-                <table class="scheme-table">
-                    <thead>
-                        <tr>
-                            <th class="checkbox-cell">चयन</th>
-                            <th style="width: 40%;">योजना का नाम (Scheme Name)</th>
-                            <th style="width: 50%;">मुख्य उद्देश्य एवं पात्रता लाभ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="checkbox-cell"><input type="checkbox"></td>
-                            <td><strong>1. इंश्योरेंस पॉलिसी योजना</strong></td>
-                            <td>आकस्मिक दुर्घटना एवं जीवन जोखिम सुरक्षा कवर</td>
-                        </tr>
-                        <tr>
-                            <td class="checkbox-cell"><input type="checkbox"></td>
-                            <td><strong>2. लाइफ微लफेयर पेंशन योजना</strong></td>
-                            <td>वरिष्ठ नागरिकों व पात्रों हेतु नियमित मासिक पेंशन सहयोग।</td>
-                        </tr>
-                        <tr>
-                            <td class="checkbox-cell"><input type="checkbox"></td>
-                            <td><strong>3. बाल शिक्षा सहायता योजना</strong></td>
-                            <td>बच्चों की शिक्षा, स्कॉलरशिप एवं स्कूल फीस हेतु आर्थिक मदद।</td>
-                        </tr>
-                        <tr>
-                            <td class="checkbox-cell"><input type="checkbox"></td>
-                            <td><strong>4. गर्भवती महिला सहायता योजना</strong></td>
-                            <td>चिकित्सा, प्रसव पूर्व देखभाल एवं पोषण हेतु वित्तीय अनुदान।</td>
-                        </tr>
-                        <tr>
-                            <td class="checkbox-cell"><input type="checkbox"></td>
-                            <td><strong>5. कन्या विवाह सहायता योजना</strong></td>
-                            <td>बेटियों के विवाह (कन्यादान) हेतु विशेष संस्थागत वित्तीय अनुदान।</td>
-                        </tr>
-                        <tr>
-                            <td class="checkbox-cell"><input type="checkbox"></td>
-                            <td><strong>6. किसान कल्याण समृद्धि योजना</strong></td>
-                            <td>कृषकों को उन्नत खेती, जैविक खाद एवं कृषि कार्यों हेतु मदद।</td>
-                        </tr>
-                        <tr>
-                            <td class="checkbox-cell"><input type="checkbox"></td>
-                            <td><strong>7. अन्य जनकल्याणकारी योजना</strong></td>
-                            <td>संस्था नियमानुसार संचालित अन्य सामाजिक सहायता योजनाएं</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="note" style="margin-top: 30px;">
-                    <strong>नोट:</strong> आवेदक एक समय में अपनी पात्रता के अनुसार एक या एक से अधिक योजनाओं का चयन कर सकते हैं। प्रत्येक चुनी गई योजना का भौतिक सत्यापन संस्था की आंतरिक टीम द्वारा किया जाएगा।
-                </div>
-
-                <div class="footer">
-                    हेल्पलाइन: 9528750182 | ईमेल: workforknowledge82@gmail.com | वेबसाइट: www.fglw.org.in<br>
-                    प्रधान कार्यालय (Head Office): पुणे, महाराष्ट्र 411001 | कार्यालय (Office): नई दिल्ली - 110001
-                </div>
-            </div>
-
-            <div class="pdf-page">
-                <div class="header">
-                    <div class="logo-text">FGLW</div>
-                    <div class="org-name">फ्यूचर ग्रोथ लाइफ वेलफेयर संस्था</div>
-                    <div class="motto">|| सेवा सहयोग समर्पण || नियम, नीति निर्देश एवं घोषणा पत्र ||</div>
-                </div>
-
-                <div class="part-title">भाग 03 : संस्थागत नीति निर्देश एवं आधिकारिक सत्यापन</div>
-                
-                <div class="section-title">3. संस्था के महत्वपूर्ण नीति नियम एवं निर्देश (Rules & Regulations)</div>
-                
-                <div class="instructions-text">
-                    <p><strong>अनिवार्य पंजीकरण शुल्क एवं खाता सक्रियता नीति:</strong><br>
-                    संस्था की नियमावली के अनुसार, पंजीकरण के समय जमा किया जाने वाला पंजीकरण शुल्क पूरी तरह से गैर-वापसीयोग्य (Non-Refundable) है। किसी भी परिस्थिति में शुल्क वापस नहीं किया जाएगा। संस्था के लिए यह शुल्क लेना अत्यंत आवश्यक है, क्योंकि इसी प्रक्रिया के माध्यम से संस्था के रिकॉर्ड में आपका आधिकारिक खाता (Account) खोला और सक्रिय (Activate) किया जाता है। खाता सक्रिय होने के उपरांत ही आप संस्था द्वारा संचालित योजनाओं का लाभ नियम संगत प्राप्त करने के हकदार बनते हैं।</p>
-                    
-                    <p><strong>1. कार्यकर्ता प्रोत्साहन राशि नियम (पेआउट):</strong><br>
-                    जब भी कोई अधिकृत कार्यकर्ता/कर्मचारी किसी ग्राहक को संस्था की योजनाओं की सही जानकारी प्रदान कर उनका स्वैच्छिक पंजीकरण फॉर्म भरवाता है, तो संस्था द्वारा उसे ₹50 प्रति फॉर्म की निश्चित प्रोत्साहन राशि प्रदान की जाएगी। यह राशि कार्यकर्ता अपनी सुविधा अनुसार सीधे अपने बैंक खाते (Bank Account) में ट्रांसफर करवा सकता है या फिर संस्था के मुख्य एजेंट के माध्यम से नकद (Cash) भी प्राप्त कर सकता है।</p>
-                    
-                    <p><strong>2. दस्तावेज सत्यापन एवं निष्कासन अधिकार (साफ शब्दों में हटाने का नियम):</strong><br>
-                    संस्था द्वारा सभी आवेदकों एवं कार्यकर्ताओं के दस्तावेजों की गहन जांच की जाएगी। यदि किसी भी आवेदक या कार्यकर्ता के दस्तावेज फर्जी, अवैध या त्रुटिपूर्ण पाए जाते हैं, अथवा कोई कार्यकर्ता संस्था की नीतियों, नियमों और अनुशासन का उल्लंघन करता है, तो संस्था को उसे बिना किसी पूर्व सूचना के तुरंत और पूर्ण रूप से कार्य/सदस्यता से हटा देने (Dismiss/Terminate करने) का पूरा अधिकार है।</p>
-                </div>
-
-                <div class="section-title">4. आवेदक द्वारा स्व-घोषणा एवं सत्यापन (Declaration & Signatures)</div>
-                <p class="instructions-text" style="font-size: 13.5px; margin-top: 10px;">
-                    <strong>घोषणा (Declaration):</strong> मैं प्रमाणित करता/करती हूँ कि इस पंजीकरण प्रपत्र में मेरे द्वारा दी गई सभी जानकारियां पूर्णतः सत्य हैं। मैंने संस्था की 'गैर-वापसीयोग्य शुल्क नीति', '₹50 कार्यकर्ता प्रोत्साहन राशि नियम' और 'नियमों के उल्लंघन पर संस्था द्वारा तुरंत व पूर्ण रूप से साफ शब्दों में हटा दिए जाने की शर्त' को अच्छी तरह पढ़ और समझ लिया है। मैं पूरी तरह सहमत होकर स्वेच्छा से खाता खुलवाने हेतु आवेदन कर रहा/रही हूँ।
-                </p>
-
-                <div style="margin-top: 25px; font-size: 14px; display: flex; gap: 50px;">
-                    <div><strong>दिनांक :</strong> <input type="text" style="width: 150px; display: inline-block;"></div>
-                    <div><strong>स्थान :</strong> <input type="text" style="width: 200px; display: inline-block;"></div>
-                </div>
-
-                <div class="sig-container">
-                    <div class="sig-box"><br><br>ग्राहक के हस्ताक्षर<br>(साइन या अंगूठे का निशान)</div>
-                    <div class="sig-box"><br><br>कार्यकर्ता / कर्मचारी के हस्ताक्षर<br>(सत्यापन करने वाले की ID)</div>
-                    <div class="sig-box"><br><br>अधिकृत हस्ताक्षर / संस्था मोहर<br>(फ्यूचर ग्रोथ लाइफ वेलफेयर)</div>
-                </div>
-
-                <div class="footer">
-                    हेल्पलाइन: 9528750182 | ईमेल: workforknowledge82@gmail.com | वेबसाइट: www.fglw.org.in<br>
-                    प्रधान कार्यालय (Head Office): पुणे, महाराष्ट्र - 411001 | कार्यालय (Office): नई दिल्ली - 110001
-                </div>
-            </div>
-
+    <!-- भाग 01 -->
+    <h3>भाग 01 : ग्राहक पंजीकरण एवं व्यक्तिगत विवरण</h3>
+    <div class="form-grid">
+        <div class="form-group full-width">
+            <label>आवेदक का नाम (सरकारी दस्तावेज के अनुसार): *</label>
+            <input type="text" placeholder="पूरा नाम लिखें">
         </div>
+        <div class="form-group">
+            <label>जन्म तिथि (DOB): *</label>
+            <input type="date">
+        </div>
+        <div class="form-group">
+            <label>जेंडर (Gender): *</label>
+            <div class="radio-group">
+                <input type="radio" name="gender" id="male"> <label for="male" style="font-weight:normal; margin-right:10px;">पुरुष</label>
+                <input type="radio" name="gender" id="female"> <label for="female" style="font-weight:normal; margin-right:10px;">महिला</label>
+                <input type="radio" name="gender" id="other"> <label for="other" style="font-weight:normal;">अन्य</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>पिता का नाम: *</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>माता का नाम: *</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>मोबाइल नंबर: *</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>पैन कार्ड संख्या:</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>आधार कार्ड संख्या: *</label>
+            <input type="text" placeholder="सुरक्षा के लिए यहाँ केवल अंतिम 4 अंक ही मान्य करें">
+        </div>
+        <div class="form-group">
+            <label>नॉमिनी का नाम: *</label>
+            <input type="text">
+        </div>
+        <div class="form-group full-width">
+            <label>पूरा पता (सरकारी दस्तावेज के अनुसार): *</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>बैंक खाता संख्या: *</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>आईएफएससी (IFSC) कोड: *</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>स्पॉन्सर का नाम:</label>
+            <input type="text">
+        </div>
+        <div class="form-group">
+            <label>स्पॉन्सर कोड (ID):</label>
+            <input type="text">
+        </div>
+    </div>
 
-        <button type="button" class="submit-btn" onclick="generatePDF()">फॉर्म सबमिट करें और PDF डाउनलोड करें</button>
-    </form>
+    <!-- भाग 02 -->
+    <h3>भाग 02 : संस्थागत कल्याणकारी योजना चयन</h3>
+    <p style="font-size: 13px; color: #666; margin: 5px 0;">* आप अपनी पात्रता के अनुसार एक या एक से अधिक योजनाओं का चयन कर सकते हैं।</p>
+    <table class="scheme-table">
+        <thead>
+            <tr>
+                <th class="text-center" style="width: 10%;">चयन (✓)</th>
+                <th style="width: 35%;">योजना का नाम</th>
+                <th style="width: 55%;">मुख्य उद्देश्य एवं पात्रता लाभ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center"><input type="checkbox"></td>
+                <td><strong>1. इंश्योरेंस पॉलिसी योजना</strong></td>
+                <td>आकस्मिक दुर्घटना एवं जीवन जोखिम सुरक्षा कवर</td>
+            </tr>
+            <tr>
+                <td class="text-center"><input type="checkbox"></td>
+                <td><strong>2. लाइफ Welfare पेंशन योजना</strong></td>
+                <td>वरिष्ठ नागरिकों व पात्रों हेतु नियमित मासिक पेंशन सहयोग।</td>
+            </tr>
+            <tr>
+                <td class="text-center"><input type="checkbox"></td>
+                <td><strong>3. बाल शिक्षा सहायता योजना</strong></td>
+                <td>बच्चों की शिक्षा, स्कॉलरशिप एवं स्कूल फीस हेतु आर्थिक मदद।</td>
+            </tr>
+            <tr>
+                <td class="text-center"><input type="checkbox"></td>
+                <td><strong>4. गर्भवती महिला सहायता योजना</strong></td>
+                <td>चिकित्सा, प्रसव पूर्व देखभाल एवं पोषण हेतु वित्तीय अनुदान।</td>
+            </tr>
+            <tr>
+                <td class="text-center"><input type="checkbox"></td>
+                <td><strong>5. कन्या विवाह सहायता योजना</strong></td>
+                <td> बेटियों के विवाह (कन्यादान) हेतु विशेष संस्थागत वित्तीय अनुदान।</td>
+            </tr>
+            <tr>
+                <td class="text-center"><input type="checkbox"></td>
+                <td><strong>6. किसान कल्याण समृद्धि योजना</strong></td>
+                <td>कृषकों को उन्नत खेती, जैविक खाद एवं कृषि कार्यों हेतु मदद।</td>
+            </tr>
+            <tr>
+                <td class="text-center"><input type="checkbox"></td>
+                <td><strong>7. अन्य जनकल्याणकारी योजना</strong></td>
+                <td>संस्था नियमानुसार संचालित अन्य सामाजिक सहायता योजनाएं</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- भाग 03 -->
+    <h3>भाग 03 : संस्थागत नीति निर्देश एवं आधिकारिक सत्यापन</h3>
+    <div class="terms-text">
+        <strong>नियम एवं शर्तें:</strong>
+        <ol>
+            <li>पंजीकरण शुल्क पूरी तरह से गैर-वापसीयोग्य (Non-Refundable) है।</li>
+            <li>कार्यकर्ता प्रोत्साहन राशि नियम के अंतर्गत प्रति सफल फॉर्म ₹50 की राशि देय होगी।</li>
+            <li>फर्जी या त्रुटिपूर्ण दस्तावेज पाए जाने पर संस्था बिना किसी पूर्व सूचना के सदस्यता रद्द करने का पूरा अधिकार रखती है।</li>
+            <li><strong>दस्तावेज सत्यापन एवं निष्कासन अधिकार नीति:</strong> संस्था को यह पूर्ण और स्पष्ट रूप से वैधानिक अधिकार प्राप्त है कि वह किसी भी समय आवेदक के जमा दस्तावेजों की गहन जांच और सत्यापन कर सकती है। यदि किसी भी स्तर पर दस्तावेज फर्जी, गलत या नियमों के विपरीत पाए जाते हैं, तो संस्था को आवेदक का नाम तुरंत सूची से निष्कासित (Remove) करने और योजना का लाभ समाप्त करने का पूरा अधिकार सुरक्षित है।</li>
+        </ol>
+    </div>
+
+    <div class="declaration">
+        <strong>घोषणा पत्र:</strong> मैं प्रमाणित करता/करती हूँ कि इस पंजीकरण प्रपत्र में मेरे द्वारा दी गई सभी जानकारियां पूर्णतः सत्य हैं। मैंने संस्था की सभी नीतियों को अच्छी तरह पढ़ और समझ लिया है।
+    </div>
+
+    <div class="footer-sign">
+        <div>दिनांक: _/_/____</div>
+        <div>आवेदक के हस्ताक्षर: _________</div>
+    </div>
+
+    <!-- सबमिट और PDF डाउनलोड बटन क्षेत्र (यह बटन डाउनलोड होने वाली PDF में नहीं आएगा) -->
+    <div class="submit-btn-container" data-html2canvas-ignore="true">
+        <button type="button" class="download-btn" onclick="generatePDF()">सबमिट और पीडीएफ डाउनलोड करें</button>
+    </div>
+
 </div>
 
 <script>
-function generatePDF() {
-    const form = document.getElementById('welfareForm');
-    
-    // बेसिक वैलिडेशन चेक (ज़रूरी फ़ील्ड्स भरे हैं या नहीं)
-    if (!form.checkValidity()) {
-        alert("कृपया सभी ज़रूरी व्यक्तिगत जानकारी सही-सही भरें।");
-        form.reportValidity();
-        return;
+    function generatePDF() {
+        const element = document.getElementById('form-to-print');
+        
+        const opt = {
+            margin:       [10, 10, 10, 10],
+            filename:     'FGLW_Registration_Form.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
     }
-
-    const element = document.getElementById('pdf-content');
-    
-    // प्रिंट मोड क्लास जोड़ें ताकि इनपुट बॉक्स की जगह साधारण टेक्स्ट/लाइनें दिखें
-    element.classList.add('pdf-mode');
-
-    // PDF जनरेट करने की सेटिंग्स
-    const opt = {
-        margin:       0,
-        filename:     'FGLW_Registration_Form.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    // PDF बनाएं और डाउनलोड करें
-    html2pdf().set(opt).from(element).save().then(() => {
-        // PDF डाउनलोड होने के बाद वापस नॉर्मल ऑनलाइन मोड में बदलें
-        element.classList.remove('pdf-mode');
-        alert("आपका फॉर्म सफलतापूर्वक सबमिट हो गया है और PDF डाउनलोड हो चुकी है!");
-    });
-}
 </script>
 
 </body>
