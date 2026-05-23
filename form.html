@@ -1,110 +1,82 @@
-<!DOCTYPE html>
-<html lang="hi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FGLW - ऑनलाइन आधिकारिक पंजीकरण प्रपत्र</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }</style>
-</head>
-<body class="bg-gray-100 min-h-screen py-6 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-        
-        <div class="bg-orange-600 text-white text-center p-6 border-b-4 border-emerald-600">
-            <h1 class="text-2xl sm:text-3xl font-bold tracking-wide">FGLW</h1>
-            <p class="text-xl font-semibold mt-1">फ्यूचर GROWTH लाईफ वेलफेयर संस्था</p>
-            <p class="text-sm italic mt-2 text-orange-100">|| सेवा सहयोग समर्पण - हमारा उद्देश्य: आपका विकास, हमारा संकल्प ||</p>
-        </div>
+<form id="registrationForm" style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+  <h2>रजिस्ट्रेशन फॉर्म</h2>
+  
+  <label>पूरा नाम:</label><br>
+  <input type="text" id="name" placeholder="अपना नाम लिखें" required style="width: 100%; padding: 8px; margin: 8px 0;"><br>
+  
+  <label>मोबाइल नंबर (फोन):</label><br>
+  <input type="tel" id="mobile" placeholder="10 अंकों का फोन नंबर" required style="width: 100%; padding: 8px; margin: 8px 0;"><br>
+  
+  <label>ईमेल आईडी:</label><br>
+  <input type="email" id="email" placeholder="अपनी ईमेल लिखें" required style="width: 100%; padding: 8px; margin: 8px 0;"><br>
 
-        <div id="successMessage" class="hidden m-6 p-6 bg-emerald-50 border-2 border-emerald-500 rounded-xl text-center">
-            <span class="text-4xl">🎉</span>
-            <h2 class="text-2xl font-bold text-emerald-800 mt-2">बधाई हो, पंजीकरण सफल रहा!</h2>
-            <p class="text-emerald-700 mt-1">आपका डेटा सुरक्षित रूप से गूगल शीट में भेज दिया गया है।</p>
-        </div>
+  <label>कोर्स चुनें:</label><br>
+  <select id="course" style="width: 100%; padding: 8px; margin: 8px 0;">
+    <option value="Refer and Earn Course">Refer and Earn Course</option>
+    <option value="Web Development">Web Development</option>
+    <option value="App Development">App Development</option>
+  </select><br><br>
+  
+  <label>अपनी फोटो अपलोड करें:</label><br>
+  <input type="file" id="photo" accept="image/*" style="margin: 8px 0;"><br><br>
+  
+  <label>सिग्नेचर (हस्ताक्षर) अपलोड करें:</label><br>
+  <input type="file" id="signature" accept="image/*" style="margin: 8px 0;"><br><br>
+  
+  <button type="submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">सबमिट करें</button>
+</form>
 
-        <form id="registrationForm" class="p-6 sm:p-8 space-y-6">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">नाम *</label>
-                    <input type="text" name="name" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
-                </div>
+<script>
+document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  // आपका दिया हुआ एकदम सही लाइव लिंक यहाँ सेट कर दिया है
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwxvK5WDpsQuv0VUhrleUhj-M5rZzPFznvg6QS-27A9vjbyIxXdqR96FH817NzfxSG25g/exec";
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">पिता का नाम *</label>
-                    <input type="text" name="fatherName" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
-                </div>
+  // फोटो और सिग्नेचर को कोड में बदलने (Base64) का फंक्शन
+  const toBase64 = file => new Promise((resolve, reject) => {
+    if(!file) resolve("");
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = error => reject(error);
+  });
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">माता का नाम *</label>
-                    <input type="text" name="motherName" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none">
-                </div>
+  const photoFile = document.getElementById('photo').files[0];
+  const signFile = document.getElementById('signature').files[0];
 
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">जेंडर (Gender) *</label>
-                    <div class="mt-2.5 space-x-4">
-                        <label class="inline-flex items-center"><input type="radio" name="gender" value="पुरुष" required class="text-emerald-600 focus:ring-emerald-500"><span class="ml-2 text-gray-700">पुरुष</span></label>
-                        <label class="inline-flex items-center"><input type="radio" name="gender" value="महिला" class="text-emerald-600 focus:ring-emerald-500"><span class="ml-2 text-gray-700">महिला</span></label>
-                        <label class="inline-flex items-center"><input type="radio" name="gender" value="अन्य" class="text-emerald-600 focus:ring-emerald-500"><span class="ml-2 text-gray-700">अन्य</span></label>
-                    </div>
-                </div>
-            </div>
+  const photoData = photoFile ? await toBase64(photoFile) : "";
+  const signData = signFile ? await toBase64(signFile) : "";
 
-            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <label class="block text-sm font-bold text-gray-700 mb-3">योजना का चयन करें:</label>
-                <div class="space-y-2">
-                    <label class="flex items-center"><input type="checkbox" name="yojana" value="बाल शिक्षा सहायता योजना" class="rounded text-emerald-600 focus:ring-emerald-500"><span class="ml-2 text-sm text-gray-700">3. बाल शिक्षा सहायता योजना</span></label>
-                    <label class="flex items-center"><input type="checkbox" name="yojana" value="गर्भवती महिला सहायता योजना" class="rounded text-emerald-600 focus:ring-emerald-500"><span class="ml-2 text-sm text-gray-700">4. गर्भवती महिला सहायता योजना</span></label>
-                    <label class="flex items-center"><input type="checkbox" name="yojana" value="कन्या विवाह सहायता योजना" class="rounded text-emerald-600 focus:ring-emerald-500"><span class="ml-2 text-sm text-gray-700">5. कन्या विवाह सहायता योजना</span></label>
-                    <label class="flex items-center"><input type="checkbox" name="yojana" value="किसान कल्याण समृद्धि योजना" class="rounded text-emerald-600 focus:ring-emerald-500"><span class="ml-2 text-sm text-gray-700">6. किसान कल्याण समृद्धि योजना</span></label>
-                    <label class="flex items-center"><input type="checkbox" name="yojana" value="अन्य जनकल्याणकारी योजना" class="rounded text-emerald-600 focus:ring-emerald-500"><span class="ml-2 text-sm text-gray-700">7. अन्य जनकल्याणकारी योजना</span></label>
-                </div>
-            </div>
+  // ये हैं वो "Properties" (पैरामीटर्स) जो आपकी शीट में डेटा भेजेंगी
+  const formData = new URLSearchParams();
+  formData.append('name', document.getElementById('name').value);
+  formData.append('mobile', document.getElementById('mobile').value); // फोन नंबर
+  formData.append('email', document.getElementById('email').value);
+  formData.append('course', document.getElementById('course').value); // कोर्स का नाम
+  formData.append('photoData', photoData);
+  formData.append('signData', signData);
 
-            <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">कार्यकर्ता ID *</label>
-                <input type="text" name="workerId" required class="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none" value="779139">
-            </div>
-
-            <div class="pt-4">
-                <button type="submit" id="submitBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-lg shadow transition duration-200">
-                    सबमिट करें
-                </button>
-                <div id="loadingMessage" class="hidden w-full bg-emerald-800 text-white font-semibold py-3 px-4 rounded-lg text-center mt-2 animate-pulse">
-                    सफलतापूर्वक सबमिट हो रहा है, कृपया प्रतीक्षा करें...
-                </div>
-            </div>
-        </form>
-
-    </div>
-
-    <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbwhuH60Ll5Gi29Vtf8bq_6nl_wWCMfS17GaMpXqU1wT9XM76kE5t4PUYcbq7N217lZrzA/exec';
-        const form = document.getElementById('registrationForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const loadingMessage = document.getElementById('loadingMessage');
-        const successMessage = document.getElementById('successMessage');
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            
-            // बटन छुपाएं और लोडिंग दिखाएं
-            submitBtn.classList.add('hidden');
-            loadingMessage.classList.remove('hidden');
-
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-                .then(response => {
-                    loadingMessage.classList.add('hidden');
-                    form.classList.add('hidden'); // फॉर्म छुपाएं
-                    successMessage.classList.remove('hidden'); // बधाई संदेश दिखाएं
-                })
-                .catch(error => {
-                    submitBtn.classList.remove('hidden');
-                    loadingMessage.classList.add('hidden');
-                    alert('कुछ गड़बड़ हुई, कृपया दोबारा प्रयास करें।');
-                    console.error('Error!', error.message);
-                });
-        });
-    </script>
-</body>
-</html>
+  // डेटा को आपकी Google Apps Script पर सबमिट करना
+  try {
+    let response = await fetch(WEB_APP_URL, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+    
+    let result = await response.json();
+    if(result.result === 'success') {
+      alert('बधाई हो! फोन नंबर और कोर्स सफलतापूर्वक ऐड हो गया है।');
+      document.getElementById('registrationForm').reset(); // फॉर्म खाली करने के लिए
+    } else {
+      alert('सर्वर एरर: ' + result.error);
+    }
+  } catch (error) {
+    console.error(error);
+    alert('नेटवर्क या CORS की समस्या! कृपया चेक करें कि Apps Script में New Deployment सही से हुआ है या नहीं।');
+  }
+});
+</script>
