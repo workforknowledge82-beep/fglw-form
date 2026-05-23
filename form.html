@@ -15,6 +15,12 @@
             <p class="text-sm italic mt-2 text-orange-100">|| सेवा सहयोग समर्पण — हमारा उद्देश्य: आपका विकास, हमारा संकल्प ||</p>
         </div>
         
+        <div id="successMessage" class="hidden m-6 p-6 bg-emerald-50 border-2 border-emerald-500 rounded-xl text-center">
+            <span class="text-4xl">🎉</span>
+            <h2 class="text-2xl font-bold text-emerald-800 mt-2">बधाई हो, पंजीकरण सफल रहा!</h2>
+            <p class="text-emerald-700 mt-1">आपका डेटा सुरक्षित रूप से गूगल शीट में भेज दिया गया है।</p>
+        </div>
+
         <form id="registrationForm" class="p-6 sm:p-10 space-y-8" action="https://script.google.com/macros/s/AKfycbxQB5csewF4E5UxGgwf9NxFibYPuOfh556iEw4BhBPNcbf3oH2sfaRnTCU0r8b29cpvlg/exec" method="POST">
             <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-sm text-blue-700">
                 <strong>निर्देशः</strong> कृपया ध्यान दें कि भाग 1 में दी गई सभी जानकारियां आपके सरकारी दस्तावेजों के अनुसार पूरी तरह शुद्ध होनी चाहिए।
@@ -49,13 +55,13 @@
                 <h2 class="text-lg font-bold text-gray-800 border-b pb-2 mb-2 text-emerald-700">भाग 02 : संस्थागत कल्याणकारी योजना चयन</h2>
                 <div class="space-y-3 bg-gray-50 p-4 rounded-lg border border-gray-200">
                     <p class="text-xs text-gray-600 mb-2">(नोट: आवेदक एक समय में अपनी पात्रता के अनुसार एक या एक से अधिक योजनाओं का चयन कर सकते हैं।)</p>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">1. इंश्योरेंस पॉलिसी योजना</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">2. लाइफ वेलफेयर पेंशन योजना</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">3. बाल शिक्षा सहायता योजना</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">4. गर्भवती महिला सहायता योजना</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">5. कन्या विवाह सहायता योजना</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">6. किसान कल्याण समृद्धि योजना</span></div></label>
-                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">7. अन्य जनकल्याणकारी योजना</span></div></label>
+                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" name="policy_1" value="Yes" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">1. इंश्योरेंस पॉलिसी योजना</span></div></label>
+                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" name="policy_2" value="Yes" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">2. लाइफ वेलफेयर पेंशन योजना</span></div></label>
+                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" name="policy_3" value="Yes" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">3. बाल शिक्षा सहायता योजना</span></div></label>
+                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" name="policy_4" value="Yes" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">4. गर्भवती महिला सहायता योजना</span></div></label>
+                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" name="policy_5" value="Yes" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">5. कन्या विवाह सहायता योजना</span></div></label>
+                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" name="policy_6" value="Yes" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">6. किसान कल्याण समृद्धि योजना</span></div></label>
+                    <label class="flex items-start p-2 hover:bg-white rounded cursor-pointer"><input type="checkbox" name="policy_7" value="Yes" class="mt-1 h-4 w-4"><div class="ml-3"><span class="text-sm font-bold text-gray-800 block">7. अन्य जनकल्याणकारी योजना</span></div></label>
                 </div>
             </div>
 
@@ -81,12 +87,32 @@
     <script>
         const form = document.getElementById('registrationForm');
         const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
         
         form.addEventListener('submit', function(e) {
             submitBtn.disabled = true;
-            submitBtn.innerText = "कृपया प्रतीक्षा करें (Submitting...)...";
+            submitBtn.innerText = "सफलतापूर्वक सबमिट हो रहा है, कृपया प्रतीक्षा करें...";
             submitBtn.classList.remove('bg-emerald-600');
             submitBtn.classList.add('bg-gray-400');
+            
+            // डेटा भेजने के बाद फॉर्म को छुपाकर बधाई संदेश दिखाने के लिए
+            setTimeout(() => {
+                form.reset();
+                submitBtn.disabled = false;
+                submitBtn.innerText = "पंजीकरण सबमिट करें";
+                submitBtn.classList.remove('bg-gray-400');
+                submitBtn.classList.add('bg-emerald-600');
+                
+                // फॉर्म छुपाएं और मैसेज दिखाएं
+                form.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+                
+                // 5 सेकंड बाद फॉर्म वापस लाएं
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                    form.classList.remove('hidden');
+                }, 5000);
+            }, 2000);
         });
     </script>
 </body>
