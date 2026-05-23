@@ -1,82 +1,123 @@
-<form id="registrationForm" style="max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
-  <h2>रजिस्ट्रेशन फॉर्म</h2>
-  
-  <label>पूरा नाम:</label><br>
-  <input type="text" id="name" placeholder="अपना नाम लिखें" required style="width: 100%; padding: 8px; margin: 8px 0;"><br>
-  
-  <label>मोबाइल नंबर (फोन):</label><br>
-  <input type="tel" id="mobile" placeholder="10 अंकों का फोन नंबर" required style="width: 100%; padding: 8px; margin: 8px 0;"><br>
-  
-  <label>ईमेल आईडी:</label><br>
-  <input type="email" id="email" placeholder="अपनी ईमेल लिखें" required style="width: 100%; padding: 8px; margin: 8px 0;"><br>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>रजिस्ट्रेशन फॉर्म</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 10px;">
 
-  <label>कोर्स चुनें:</label><br>
-  <select id="course" style="width: 100%; padding: 8px; margin: 8px 0;">
-    <option value="Refer and Earn Course">Refer and Earn Course</option>
-    <option value="Web Development">Web Development</option>
-    <option value="App Development">App Development</option>
-  </select><br><br>
-  
-  <label>अपनी फोटो अपलोड करें:</label><br>
-  <input type="file" id="photo" accept="image/*" style="margin: 8px 0;"><br><br>
-  
-  <label>सिग्नेचर (हस्ताक्षर) अपलोड करें:</label><br>
-  <input type="file" id="signature" accept="image/*" style="margin: 8px 0;"><br><br>
-  
-  <button type="submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">सबमिट करें</button>
-</form>
-
-<script>
-document.getElementById('registrationForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  // आपका दिया हुआ एकदम सही लाइव लिंक यहाँ सेट कर दिया है
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwxvK5WDpsQuv0VUhrleUhj-M5rZzPFznvg6QS-27A9vjbyIxXdqR96FH817NzfxSG25g/exec";
-
-  // फोटो और सिग्नेचर को कोड में बदलने (Base64) का फंक्शन
-  const toBase64 = file => new Promise((resolve, reject) => {
-    if(!file) resolve("");
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result.split(',')[1]);
-    reader.onerror = error => reject(error);
-  });
-
-  const photoFile = document.getElementById('photo').files[0];
-  const signFile = document.getElementById('signature').files[0];
-
-  const photoData = photoFile ? await toBase64(photoFile) : "";
-  const signData = signFile ? await toBase64(signFile) : "";
-
-  // ये हैं वो "Properties" (पैरामीटर्स) जो आपकी शीट में डेटा भेजेंगी
-  const formData = new URLSearchParams();
-  formData.append('name', document.getElementById('name').value);
-  formData.append('mobile', document.getElementById('mobile').value); // फोन नंबर
-  formData.append('email', document.getElementById('email').value);
-  formData.append('course', document.getElementById('course').value); // कोर्स का नाम
-  formData.append('photoData', photoData);
-  formData.append('signData', signData);
-
-  // डेटा को आपकी Google Apps Script पर सबमिट करना
-  try {
-    let response = await fetch(WEB_APP_URL, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    });
+  <div id="formContainer" style="max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: white; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; color: #333;">रजिस्ट्रेशन फॉर्म</h2>
     
-    let result = await response.json();
-    if(result.result === 'success') {
-      alert('बधाई हो! फोन नंबर और कोर्स सफलतापूर्वक ऐड हो गया है।');
-      document.getElementById('registrationForm').reset(); // फॉर्म खाली करने के लिए
-    } else {
-      alert('सर्वर एरर: ' + result.error);
-    }
-  } catch (error) {
-    console.error(error);
-    alert('नेटवर्क या CORS की समस्या! कृपया चेक करें कि Apps Script में New Deployment सही से हुआ है या नहीं।');
-  }
-});
-</script>
+    <form id="registrationForm">
+      <label><b>पूरा नाम:</b></label><br>
+      <input type="text" id="name" placeholder="अपना नाम लिखें" required style="width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box;"><br>
+      
+      <label><b>मोबाइल नंबर (फोन):</b></label><br>
+      <input type="tel" id="mobile" placeholder="10 अंकों का फोन नंबर" required style="width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box;"><br>
+      
+      <label><b>ईमेल आईडी:</b></label><br>
+      <input type="email" id="email" placeholder="अपनी ईमेल लिखें" required style="width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box;"><br>
+
+      <label><b>कोर्स चुनें:</b></label><br>
+      <select id="course" style="width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box;">
+        <option value="Refer and Earn Course">Refer and Earn Course</option>
+        <option value="Web Development">Web Development</option>
+        <option value="App Development">App Development</option>
+      </select><br><br>
+      
+      <label><b>अपनी फोटो अपलोड करें:</b></label><br>
+      <input type="file" id="photo" accept="image/*" style="margin: 8px 0;" required><br>
+      <img id="photoPreview" style="max-width: 100px; display: none; margin-top: 5px;"><br>
+      
+      <label><b>सिग्नेचर (हस्ताक्षर) अपलोड करें:</b></label><br>
+      <input type="file" id="signature" accept="image/*" style="margin: 8px 0;" required><br>
+      <img id="signPreview" style="max-width: 120px; display: none; margin-top: 5px;"><br><br>
+      
+      <button type="submit" style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: bold;">सबमिट करें और PDF डाउनलोड करें</button>
+    </form>
+  </div>
+
+  <div id="pdfTemplate" style="display: none; padding: 30px; font-family: Arial, sans-serif; border: 2px solid #333; background-color: white;">
+    <h1 style="text-align: center; color: #4CAF50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px;">सफलतापूर्वक रजिस्ट्रेशन रसीद</h1>
+    <p style="text-align: right;"><b>तारीख:</b> <span id="pdfDate"></span></p>
+    
+    <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 10px; width: 70%; vertical-align: top;">
+          <p style="font-size: 18px;"><b>छात्र का नाम:</b> <span id="pdfName" style="color: #333;"></span></p>
+          <p style="font-size: 18px;"><b>मोबाइल नंबर:</b> <span id="pdfMobile"></span></p>
+          <p style="font-size: 18px;"><b>ईमेल आईडी:</b> <span id="pdfEmail"></span></p>
+          <p style="font-size: 18px;"><b>चुना गया कोर्स:</b> <span id="pdfCourse" style="color: #4CAF50; font-weight: bold;"></span></p>
+        </td>
+        <td style="padding: 10px; width: 30%; text-align: center; vertical-align: top;">
+          <p><b>यूजर फोटो:</b></p>
+          <img id="pdfPhotoView" style="width: 120px; height: 150px; border: 1px solid #ccc; object-fit: cover;">
+        </td>
+      </tr>
+    </table>
+    
+    <div style="margin-top: 50px; text-align: right; padding-right: 20px;">
+      <p><b>यूजर हस्ताक्षर:</b></p>
+      <img id="pdfSignView" style="max-width: 150px; height: 60px; border-bottom: 1px solid #333;">
+    </div>
+    
+    <hr style="margin-top: 40px; border: 1px solid #ccc;">
+    <p style="text-align: center; color: #777; font-size: 12px;">यह एक सिस्टम जनरेटेड रसीद है। धन्यवाद।</p>
+  </div>
+
+  <script>
+    // फोटो और सिग्नेचर को स्क्रीन पर दिखाने के लिए
+    document.getElementById('photo').addEventListener('change', function(e) {
+      const reader = new FileReader();
+      reader.onload = function(){ document.getElementById('photoPreview').src = reader.result; document.getElementById('photoPreview').style.display = 'block'; };
+      reader.readAsDataURL(e.target.files[0]);
+    });
+
+    document.getElementById('signature').addEventListener('change', function(e) {
+      const reader = new FileReader();
+      reader.onload = function(){ document.getElementById('signPreview').src = reader.result; document.getElementById('signPreview').style.display = 'block'; };
+      reader.readAsDataURL(e.target.files[0]);
+    });
+
+    // फॉर्म सबमिट होने पर पीडीएफ बनाने का लॉजिक
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // पीडीएफ टेम्पलेट में डेटा भरना
+      document.getElementById('pdfName').innerText = document.getElementById('name').value;
+      document.getElementById('pdfMobile').innerText = document.getElementById('mobile').value;
+      document.getElementById('pdfEmail').innerText = document.getElementById('email').value;
+      document.getElementById('pdfCourse').innerText = document.getElementById('course').value;
+      document.getElementById('pdfDate').innerText = new Date().toLocaleDateString('hi-IN') + " " + new Date().toLocaleTimeString('hi-IN');
+
+      // फोटो और साइन को पीडीएफ में सेट करना
+      document.getElementById('pdfPhotoView').src = document.getElementById('photoPreview').src;
+      document.getElementById('pdfSignView').src = document.getElementById('signPreview').src;
+
+      // पीडीएफ जनरेट करने की सेटिंग्स
+      const element = document.getElementById('pdfTemplate');
+      element.style.display = 'block'; // थोड़ी देर के लिए दिखाना ताकि लाइब्रेरी पढ़ सके
+
+      const opt = {
+        margin:       10,
+        filename:     document.getElementById('name').value + '_Registration.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      // पीडीएफ डाउनलोड शुरू करना
+      html2pdf().set(opt).from(element).save().then(() => {
+        element.style.display = 'none'; // डाउनलोड के बाद वापस छुपा देना
+        alert('बधाई हो! आपकी रजिस्ट्रेशन पीडीएफ सफलतापुर्वक डाउनलोड हो गई है।');
+        document.getElementById('registrationForm').reset();
+        document.getElementById('photoPreview').style.display = 'none';
+        document.getElementById('signPreview').style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
